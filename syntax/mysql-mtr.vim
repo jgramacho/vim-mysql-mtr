@@ -1,6 +1,7 @@
 " Vim syntax file
 " Language:     mtr + mysql
-" Maintainer:   Joao Gramacho <jgramacho@gmail.com>
+" Maintainer:   Joao Gramacho
+" URL:          https://github.com/jgramacho/vim-mysql-mtr
 " Filenames:    *.test *.inc
 
 " For version 6.x: Quit when a syntax file was already loaded
