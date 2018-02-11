@@ -1,8 +1,8 @@
 # vim-mysql-mtr
 
-This project goal is to provide proper syntax highlighting when editing [MySQL Test Framework](http://dev.mysql.com/doc/mysqltest/2.0/en/) source files.
+This project goal is to provide proper syntax highlighting when editing [MySQL Test Framework](https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_MYSQL_TEST_RUN.html) source files.
 
-The text below is an adapted quote from http://dev.mysql.com/doc/mysqltest/2.0/en/mysqltest-introduction.html:
+The text below is an adapted quote from https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_INTRODUCTION.html:
 
 > The application that runs MySQL test suite is named ```mysql-test-run.pl```. Its location is the mysql-test directory (that is referenced in [ftdetect/mysql-mtr.vim](ftdetect/mysql-mtr.vim)), which is present both in source and binary MySQL Server distributions.
 > 
