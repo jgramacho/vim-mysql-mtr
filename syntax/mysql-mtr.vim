@@ -25,6 +25,7 @@ syn match mtrInclude "extra/.*\.inc" contains=@NoSpell
 syn match mtrInclude "extra/.*\.test" contains=@NoSpell
 syn match mtrInclude "suite/.*\.inc" contains=@NoSpell
 syn match mtrInclude "suite/.*\.test" contains=@NoSpell
+syn match mtrInclude "../inc/.*\.inc" contains=@NoSpell
 
 " Keywords
 syn keyword mtrKeyword append_file
