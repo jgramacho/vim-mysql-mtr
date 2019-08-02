@@ -1,0 +1,188 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - test
+scope: source.mysql_test
+contexts:
+  main:
+
+    # Comments
+    - match: \#+
+      scope: punctuation.definition.comment.begin.mysql_test
+      push:
+        - meta_scope: comment.line.number-sign.mysql_test
+        - match: $
+          pop: true
+
+    - include: mtr_strings
+    - include: mtr_others
+    - include: mtr_variables
+    - include: mtr_includes
+    - include: mtr_delimiters
+    - include: mtr_keywords
+
+###[ MISC ]###############################################################
+
+  mtr_others:
+
+    #Words in all caps usually mean SQL commands
+    - match: \b([A-Z]+([._]*[A-Z])*)\b
+      scope: constant.other.mysql_test
+
+    # TODOs
+    - match: '\b(TODO|FIXME|XXX|NOTE)\b'
+      scope: invalid.illegal.mysql_test
+
+###[ STRINGS ]###############################################################
+
+  mtr_strings:
+    - match: \"
+      scope: punctuation.definition.string.begin.mysql_test
+      push:
+        - meta_scope: string.double_quoted.mysql_test
+        - match: \"
+          pop: true
+
+    - match: \'
+      scope: punctuation.definition.string.begin.mysql_test
+      push:
+        - meta_scope: string.single_quoted.mysql_test
+        - match: \'
+          pop: true
+
+    - match: \`
+      scope: punctuation.definition.string.begin.mysql_test
+      push:
+        - meta_scope: string.sql_query.mysql_test
+        - match: \`
+          pop: true
+
+###[ INCLUDES ]###############################################################
+
+  mtr_includes:
+    - match: include\/.*\.inc
+      scope: keyword.control.import
+
+    - match: extra\/.*\.inc
+      scope: keyword.control.import
+
+    - match: extra\/.*\.test
+      scope: keyword.control.import
+
+    - match: suite\/.*\.inc
+      scope:  keyword.control.import
+
+    - match: suite\/.*\.test
+      scope: keyword.control.import
+
+    - match: \.\.\/inc\/.*\.inc
+      scope: keyword.control.import
+
+###[ DELIMITERS ]###############################################################
+
+  mtr_delimiters:
+    - match: \-\-
+      scope: punctuation.separator.sequence.mysql_test
+
+###[ KEYWORDS ]###############################################################
+
+#'We separate here control and functions.
+# To be more visible we put things like echo under control, and other methods like send as functions'
+
+  mtr_keywords:
+
+    # language conditional/loop words
+    - match: '\b(if|else|while)\b'
+      scope: keyword.control.mysql_test
+
+    # math operations
+    - match: '\b(inc|dec)\b'
+      scope: support.function.mysql_test
+
+    # file operations
+    - match: '\b(append_file|cat_file|copy_file|file_exists|list_files|list_files_append_file|list_files_write_file|move_file|remove_file|remove_files_wildcard|rmdir|write_file|mkdir|diff_files)\b'
+      scope: keyword.control.mysql_test
+
+    # result words
+    - match: '\b(horizontal_results|vertical_results|lowercase_result|sorted_result|output)\b'
+      scope: keyword.control.mysql_test
+
+    # generic MTR|Perl commands
+    - match: '\b(echo)\b'
+      scope: keyword.control.mysql_test
+
+    # generic MTR|Perl commands
+    - match: '\b(let|echo|perl|delimiter|sleep|die|eval|exit|end|real_sleep|skip|call)\b'
+      scope: support.function.mysql_test
+
+    # send/reap commands
+    - match: '\b(send|reap|send|send_eval|send_quit|send_shutdown)\b'
+      scope: support.function.mysql_test
+
+    # connection settings
+    - match: '\b(connect|connection|disconnect|change_user|reset_connection)\b'
+      scope: keyword.control.mysql_test
+
+    # query options
+    - match: '\b(query|query_get_value|query_horizontal|query_vertical)\b'
+      scope: keyword.control.mysql_test
+
+    # slave commands
+    - match: '\b(wait_for_slave_to_stop|sync_with_master|sync_slave_with_master|save_master_pos)\b'
+      scope: keyword.control.mysql_test
+
+    # exec commands
+    - match: '\b(exec|execw)\b'
+      scope: support.function.mysql_test
+
+    # server operations
+    - match: '\b(shutdown_server)\b'
+      scope: keyword.control.mysql_test
+
+    # replace commands
+    - match: '\b(replace_column|replace_regex|replace_result|result|result_format)\b'
+      scope: support.function.mysql_test
+
+    # common enable/disable commands
+    - match: '\b(disable_warnings|enable_warnings|disable_query_log|enable_query_log|disable_reconnect|enable_reconnect|disable_result_log|enable_result_log)\b'
+      scope: support.function.mysql_test
+
+    # others
+
+    - match: '\b(require|character_set|chmod|start_timer|end_timer|dirty_close|ping)\b'
+      scope: keyword.control.mysql_test
+
+    - match: '\b(disable_abort_on_error|enable_abort_on_error|disable_connect_log|enable_connect_log|disable_info|enable_info)\b'
+      scope: keyword.control.mysql_test
+
+    - match: '\b(disable_metadata|enable_metadata|disable_parsing|enable_parsing|disable_ps_protocol|enable_ps_protocol)\b'
+      scope: keyword.control.mysql_test
+
+    - match: '\b(disable_rpl_parse|enable_rpl_parse|disable_session_track_info|enable_session_track_info)\b'
+      scope: keyword.control.mysql_test
+
+    - match: '\b(error|convert_error)\b'
+      scope: keyword.control.mysql_test
+
+    - match: '\b(source)\b'
+      scope: keyword.control.import
+
+
+###[ VARIABLES ]###############################################################
+
+  mtr_variables:
+
+    - match: \$\a*[A-Za-z0-9]*([._]*[A-Za-z0-9])*
+      scope: variable.parameter.mysql_test
+
+    - match: \=[ ]*([0-9]*)
+      captures:
+        1: constant.numeric.mysql_test
+
+    - match: \=[ ]*([0-9]*\.[0-9]*)
+      captures:
+        1: constant.numeric.mysql_test
+
+    - match: 0x[abcdefABCDEF0-9]*
+      scope: constant.numeric.mysql_test
